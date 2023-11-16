@@ -1,0 +1,116 @@
+// Shape.java
+public abstract class Shape {
+    abstract void draw();
+}
+
+// Rectangle.java
+public class Rectangle extends Shape {
+    @Override
+    void draw() {
+        System.out.println("Desenhando um retângulo");
+    }
+}
+
+// Circle.java
+public class Circle extends Shape {
+    @Override
+    void draw() {
+        System.out.println("Desenhando um círculo");
+    }
+}
+
+// Square.java
+public class Square extends Shape {
+    @Override
+    void draw() {
+        System.out.println("Desenhando um quadrado");
+    }
+}
+
+// AbstractFactory.java
+public abstract class AbstractFactory {
+    abstract Shape getShape(String shapeType);
+}
+
+// FactoryProducer.java
+public class FactoryProducer {
+    public static AbstractFactory getFactory(String choice){
+        if(choice.equalsIgnoreCase("RED")){
+            return new RedShapeFactory();
+        } else if(choice.equalsIgnoreCase("BLUE")){
+            return new BlueShapeFactory();
+        }
+        return null;
+    }
+}
+
+// RedShapeFactory.java
+public class RedShapeFactory extends AbstractFactory {
+    @Override
+    Shape getShape(String shapeType){
+        if(shapeType == null){
+            return null;
+        }		
+        if(shapeType.equalsIgnoreCase("CIRCLE")){
+            return new RedCircle();
+        } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
+            return new RedRectangle();
+        } else if(shapeType.equalsIgnoreCase("SQUARE")){
+            return new RedSquare();
+        }
+        return null;
+    }
+}
+
+// BlueShapeFactory.java
+public class BlueShapeFactory extends AbstractFactory {
+    @Override
+    Shape getShape(String shapeType){
+        if(shapeType == null){
+            return null;
+        }		
+        if(shapeType.equalsIgnoreCase("CIRCLE")){
+            return new BlueCircle();
+        } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
+            return new BlueRectangle();
+        } else if(shapeType.equalsIgnoreCase("SQUARE")){
+            return new BlueSquare();
+        }
+        return null;
+    }
+}
+
+// Principal.java
+public class Principal {
+    public static void main(String[] args) {
+        // Obter uma fábrica de formas vermelhas
+        AbstractFactory redShapeFactory = FactoryProducer.getFactory("RED");
+
+        // Obter um objeto de Circle e chamar seu método de desenho
+        Shape shape1 = redShapeFactory.getShape("CIRCLE");
+        shape1.draw();
+
+        // Obter um objeto de Rectangle e chamar seu método de desenho
+        Shape shape2 = redShapeFactory.getShape("RECTANGLE");
+        shape2.draw();
+
+        // Obter um objeto de Square e chamar seu método de desenho
+        Shape shape3 = redShapeFactory.getShape("SQUARE");
+        shape3.draw();
+
+        // Obter uma fábrica de formas azuis
+        AbstractFactory blueShapeFactory = FactoryProducer.getFactory("BLUE");
+
+        // Obter um objeto de Circle e chamar seu método de desenho
+        Shape shape4 = blueShapeFactory.getShape("CIRCLE");
+        shape4.draw();
+
+        // Obter um objeto de Rectangle e chamar seu método de desenho
+        Shape shape5 = blueShapeFactory.getShape("RECTANGLE");
+        shape5.draw();
+
+        // Obter um objeto de Square e chamar seu método de desenho
+        Shape shape6 = blueShapeFactory.getShape("SQUARE");
+        shape6.draw();
+    }
+}
